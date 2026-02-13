@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MATTBEAR — ALL FALL DOWN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0c0c0f;
+    --panel:#111219;
+    --panel2:#0f1016;
+    --text:#e6d8b8;
+    --muted:rgba(230,216,184,.72);
+    --line:rgba(230,216,184,.16);
+    --gold1:#b08a3c;
+    --gold2:#e6d8b8;
+    --shadow:0 14px 60px rgba(0,0,0,.55);
+  }
+
+  body{
+    margin:0;
+    color:var(--text);
+    font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    text-align:center;
+    background:
+      radial-gradient(900px 600px at 15% 10%, rgba(176,138,60,.14), transparent 60%),
+      radial-gradient(900px 600px at 90% 20%, rgba(230,216,184,.08), transparent 60%),
+      var(--bg);
+    transition: filter .2s ease;
+  }
+
+  /* SoundCloud reactive “pulse” */
+  body.sc-playing{
+    filter: saturate(1.05) contrast(1.02);
+  }
+  body.sc-playing::before{
+    content:"";
+    position:fixed;
+    inset:-40px;
+    pointer-events:none;
+    background:
+      radial-gradient(700px 320px at 20% 15%, rgba(176,138,60,var(--pulseA)), transparent 65%),
+      radial-gradient(700px 320px at 80% 25%, rgba(230,216,184,var(--pulseB)), transparent 65%);
+    opacity: 1;
+    transition: opacity .25s ease;
+    mix-blend-mode: screen;
+    z-index:0;
+  }
+
+  .wrap{ max-width:1200
