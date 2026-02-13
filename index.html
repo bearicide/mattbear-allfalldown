@@ -18,7 +18,13 @@
     --gold1:#b08a3c;
     --gold2:#e6d8b8;
     --shadow:0 14px 60px rgba(0,0,0,.55);
+
+    /* SC pulse vars (updated in JS) */
+    --pulseA: .08;
+    --pulseB: .05;
   }
+
+  *{ box-sizing:border-box; }
 
   body{
     margin:0;
@@ -32,22 +38,566 @@
     transition: filter .2s ease;
   }
 
-  /* SoundCloud reactive “pulse” */
+  /* SoundCloud reactive wash (Option 3) */
   body.sc-playing{
-    filter: saturate(1.05) contrast(1.02);
+    filter: saturate(1.06) contrast(1.02);
   }
   body.sc-playing::before{
     content:"";
     position:fixed;
-    inset:-40px;
+    inset:-60px;
     pointer-events:none;
     background:
-      radial-gradient(700px 320px at 20% 15%, rgba(176,138,60,var(--pulseA)), transparent 65%),
-      radial-gradient(700px 320px at 80% 25%, rgba(230,216,184,var(--pulseB)), transparent 65%);
-    opacity: 1;
-    transition: opacity .25s ease;
+      radial-gradient(820px 360px at 20% 15%, rgba(176,138,60,var(--pulseA)), transparent 66%),
+      radial-gradient(820px 360px at 80% 25%, rgba(230,216,184,var(--pulseB)), transparent 66%);
     mix-blend-mode: screen;
     z-index:0;
   }
 
-  .wrap{ max-width:1200
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:1200px;
+    margin:0 auto;
+    padding: 0 18px 64px;
+  }
+
+  header{
+    padding: 58px 18px 20px;
+    position:relative;
+    z-index:1;
+  }
+
+  h1{
+    font-family:'Cinzel', serif;
+    font-size:48px;
+    letter-spacing:4px;
+    margin:0;
+  }
+
+  h2{
+    font-weight:300;
+    margin:10px 0 0;
+    letter-spacing:2px;
+    color:var(--muted);
+  }
+
+  .buttons{
+    margin: 22px 0 0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+  }
+
+  .button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding: 14px 22px;
+    background: linear-gradient(45deg, var(--gold1), var(--gold2));
+    color:#0c0c0f;
+    text-decoration:none;
+    font-weight:600;
+    border-radius: 12px;
+    transition: 0.2s ease;
+    box-shadow: 0 10px 24px rgba(0,0,0,.30);
+  }
+  .button:hover{ transform: translateY(-2px); }
+
+  .card{
+    margin-top:22px;
+    border:1px solid var(--line);
+    background: linear-gradient(180deg, rgba(17,18,25,.88), rgba(15,16,22,.88));
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+
+  .playerGrid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:0;
+  }
+  @media (max-width: 980px){
+    .playerGrid{ grid-template-columns: 1fr; }
+  }
+
+  .playerLeft{
+    padding:18px 18px 12px;
+    border-right:1px solid rgba(230,216,184,.10);
+  }
+  @media (max-width: 980px){
+    .playerLeft{ border-right:0; border-bottom:1px solid rgba(230,216,184,.10); }
+  }
+
+  .playerRight{
+    padding:18px;
+  }
+
+  .sectionTitle{
+    font-family:'Cinzel', serif;
+    letter-spacing:2px;
+    font-size:18px;
+    margin:0 0 10px;
+  }
+
+  .nowPlaying{
+    margin: 10px 0 12px;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: .4px;
+    line-height: 1.35;
+  }
+  .nowPlaying b{
+    color: var(--text);
+    font-weight:600;
+  }
+
+  audio{
+    width:100%;
+    margin: 8px 0 14px;
+  }
+
+  .vizWrap{
+    position:relative;
+    border:1px solid rgba(230,216,184,.12);
+    border-radius: 14px;
+    overflow:hidden;
+    background:
+      radial-gradient(600px 250px at 20% 20%, rgba(176,138,60,.10), transparent 60%),
+      radial-gradient(600px 250px at 80% 40%, rgba(230,216,184,.06), transparent 60%),
+      rgba(0,0,0,.22);
+  }
+
+  canvas{
+    width:100%;
+    height:220px;
+    display:block;
+  }
+
+  .vizHint{
+    position:absolute;
+    inset:auto 12px 10px 12px;
+    font-size:12px;
+    color:rgba(230,216,184,.62);
+    text-align:left;
+    pointer-events:none;
+  }
+
+  .playlist{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:10px;
+    max-height: 360px;
+    overflow:auto;
+    padding-right: 6px;
+  }
+
+  .trackBtn{
+    text-align:left;
+    width:100%;
+    border:1px solid rgba(230,216,184,.12);
+    background: rgba(0,0,0,.20);
+    color:var(--text);
+    border-radius:14px;
+    padding:12px 12px;
+    cursor:pointer;
+    transition: 0.15s ease;
+  }
+  .trackBtn:hover{
+    transform: translateY(-1px);
+    background: rgba(0,0,0,.28);
+    border-color: rgba(230,216,184,.20);
+  }
+  .trackBtn.active{
+    border-color: rgba(230,216,184,.35);
+    background: rgba(176,138,60,.14);
+  }
+
+  .trackMeta{
+    display:flex;
+    gap:10px;
+    align-items:baseline;
+    justify-content:space-between;
+  }
+  .trackMeta .left{
+    display:flex;
+    gap:10px;
+    align-items:baseline;
+    min-width:0;
+  }
+  .num{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    opacity:.75;
+  }
+  .tname{
+    font-weight:600;
+    letter-spacing:.2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .dur{
+    opacity:.65;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    padding: 22px;
+  }
+
+  .gallery img{
+    width:100%;
+    border-radius: 12px;
+    box-shadow: 0 0 26px rgba(230,216,184,0.14);
+    transition: 0.25s ease;
+  }
+  .gallery img:hover{
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(230,216,184,0.30);
+  }
+
+  .scWrap{
+    padding: 18px;
+    border-top: 1px solid rgba(230,216,184,.10);
+  }
+  .scTitle{
+    margin: 2px 0 12px;
+    font-family:'Cinzel', serif;
+    letter-spacing:2px;
+    font-size:16px;
+    color: rgba(230,216,184,.85);
+  }
+
+  footer{
+    margin-top: 18px;
+    padding: 18px 18px 0;
+    font-size: 12px;
+    color: rgba(230,216,184,.60);
+    line-height:1.5;
+  }
+
+  .fine{
+    margin-top:10px;
+    border-top:1px solid rgba(230,216,184,.10);
+    padding-top:12px;
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>MATTBEAR</h1>
+  <h2>ALL FALL DOWN · 2026</h2>
+  <div class="buttons">
+    <a class="button" href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank" rel="noopener noreferrer">Open on SoundCloud</a>
+    <a class="button" href="https://suno.com/@mattbear86" target="_blank" rel="noopener noreferrer">Open on Suno</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <div class="playerGrid">
+      <div class="playerLeft">
+        <h3 class="sectionTitle">LOCAL PLAYER + VISUALIZER</h3>
+        <div class="nowPlaying">Now playing: <b id="npTitle">—</b></div>
+
+        <audio id="audio" controls preload="metadata" crossorigin="anonymous"></audio>
+
+        <div class="vizWrap">
+          <canvas id="viz" width="1200" height="220" aria-label="Audio visualizer"></canvas>
+          <div class="vizHint">Visualizer runs on local audio. (SoundCloud embed is separate.)</div>
+        </div>
+      </div>
+
+      <div class="playerRight">
+        <h3 class="sectionTitle">TRACKLIST</h3>
+        <div class="playlist" id="playlist"></div>
+      </div>
+    </div>
+
+    <footer>
+      ℗ &amp; © 2026 MATTBEAR · All rights reserved. Unauthorized duplication or redistribution is prohibited.
+      <div class="fine">Produced by MATTBEAR · Mixed &amp; mastered 2026</div>
+    </footer>
+  </div>
+
+  <div class="card">
+    <div class="gallery">
+      <img src="cover-front.jpg" alt="All Fall Down — front cover">
+      <img src="cover-back.jpg" alt="All Fall Down — back cover">
+      <img src="dj-promo.jpg" alt="Mattbear DJ promo poster">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="scWrap">
+      <div class="scTitle">SOUNDCLOUD (EMBED)</div>
+      <iframe
+        id="scWidget"
+        width="100%"
+        height="450"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%23b08a3c&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=true">
+      </iframe>
+      <footer class="fine">
+        This page reacts to SoundCloud play/pause (pulse/glow) without stealing audio.
+      </footer>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ===== LOCAL PLAYER (uses YOUR filenames) =====
+  const TRACKS = [
+    { n:"01", title:"Responsibility", file:"audio/1 Mattbear  - [INTRO, Responsibility] (All Fall Down 2026).mp3" },
+    { n:"02", title:"Burn The Blueprint", file:"audio/2 Mattbear  - Burn The Blueprint - (All Fall Down 2026).mp3" },
+    { n:"03", title:"Waking Up", file:"audio/3 Mattbear  - Waking Up - (All Fall Down 2026).mp3" },
+    { n:"04", title:"Murder At The Hobby Lobby", file:"audio/4 Mattbear  - Murder At The Hobby Lobby - (All Fall Down 2026).mp3" },
+    { n:"05", title:"Stay Back", file:"audio/5 Mattbear   - Stay Back - (All Fall Down 2026).mp3" },
+    { n:"06", title:"Stay Back (Seriously Remix)", file:"audio/6 Mattbear   - Stay Back (Seriously Remix) - (All Fall Down 2026).mp3" },
+    { n:"07", title:"Body Hunt", file:"audio/7 Mattbear - Body Hunt (Allfalldown) - All Fall Down 2026).mp3" },
+    { n:"08", title:"Pianolude", file:"audio/8 Mattbear - Pianolude  (All Fall Down 2026).mp3" },
+    { n:"09", title:"Bearly Breathing", file:"audio/9 Mattbear  - Bearly Breathing - (All Fall Down 2026).mp3" },
+    { n:"10", title:"Money", file:"audio/10 Mattbear - Money - (All Fall Down 2026).mp3" },
+    { n:"11", title:"Not Like This", file:"audio/11 Mattbear  - Not Like This - (All Fall Down 2026).mp3" },
+    { n:"12", title:"Lines On Fire (Still Human)", file:"audio/12 Mattbear  - Lines On Fire (Still Human) - (All Fall Down 2026).mp3" },
+    { n:"13", title:"Solutions (One By One)", file:"audio/13 Mattbear  - Solutions (One By One) - (All Fall Down 2026).mp3" },
+    { n:"14", title:"All Fall Down (Intro)", file:"audio/14 Mattbear -  All Fall Down (intro) (All Fall Down 2026).mp3" },
+    { n:"15", title:"All Fall Down", file:"audio/15 Mattbear - All Fall Down (All Fall Down 2026).mp3" },
+    { n:"16", title:"All Fall Down (Pt II)", file:"audio/16 Mattbear - We All Fall Down (v2.0) (All Fall Down 2026).mp3" },
+    { n:"17", title:"Dedication", file:"audio/17 Mattbear  - [OUTRO, Dedication] - (All Fall Down 2026).mp3" }
+  ];
+
+  const audio = document.getElementById("audio");
+  const npTitle = document.getElementById("npTitle");
+  const playlistEl = document.getElementById("playlist");
+
+  let currentIndex = 0;
+  const buttons = [];
+
+  function setActive(idx){
+    buttons.forEach((b,i)=>b.classList.toggle("active", i===idx));
+    currentIndex = idx;
+  }
+
+  function loadTrack(idx, autoplay=true){
+    const t = TRACKS[idx];
+    if(!t) return;
+    audio.src = t.file;
+    npTitle.textContent = `${t.n} — ${t.title}`;
+    setActive(idx);
+    if(autoplay){
+      audio.play().catch(()=>{});
+    }
+  }
+
+  function formatTime(sec){
+    if(!isFinite(sec)) return "—";
+    const m = Math.floor(sec/60);
+    const s = Math.floor(sec%60);
+    return `${m}:${String(s).padStart(2,"0")}`;
+  }
+
+  // Build playlist UI
+  TRACKS.forEach((t, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "trackBtn";
+    btn.type = "button";
+    btn.innerHTML = `
+      <div class="trackMeta">
+        <div class="left">
+          <span class="num">${t.n}</span>
+          <span class="tname">${t.title}</span>
+        </div>
+        <span class="dur" id="dur-${idx}">—</span>
+      </div>
+    `;
+    btn.addEventListener("click", () => loadTrack(idx, true));
+    playlistEl.appendChild(btn);
+    buttons.push(btn);
+  });
+
+  // Auto-next local tracks
+  audio.addEventListener("ended", () => {
+    const next = (currentIndex + 1) % TRACKS.length;
+    loadTrack(next, true);
+  });
+
+  // Probe durations (best effort)
+  function probeDurations(){
+    TRACKS.forEach((t, idx) => {
+      const probe = document.createElement("audio");
+      probe.preload = "metadata";
+      probe.src = t.file;
+      probe.addEventListener("loadedmetadata", () => {
+        const durEl = document.getElementById(`dur-${idx}`);
+        if(durEl) durEl.textContent = formatTime(probe.duration);
+        probe.remove();
+      });
+      probe.addEventListener("error", () => probe.remove());
+    });
+  }
+
+  // ===== LOCAL VISUALIZER =====
+  const canvas = document.getElementById("viz");
+  const ctx = canvas.getContext("2d");
+  let audioCtx, analyser, dataArray, srcNode, rafId;
+
+  function resizeCanvas(){
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(rect.width * devicePixelRatio);
+    canvas.height = Math.floor(rect.height * devicePixelRatio);
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  function initAudioContext(){
+    if(audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    analyser.smoothingTimeConstant = 0.86;
+
+    srcNode = audioCtx.createMediaElementSource(audio);
+    srcNode.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+  }
+
+  function draw(){
+    if(!analyser) return;
+    analyser.getByteFrequencyData(dataArray);
+
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0,0,w,h);
+
+    // background wash
+    ctx.fillStyle = "rgba(0,0,0,0.35)";
+    ctx.fillRect(0,0,w,h);
+
+    const bars = 96;
+    const step = Math.floor(dataArray.length / bars);
+    const cell = w / bars;
+    const barW = cell * 0.86;
+    const gap = cell - barW;
+
+    for(let i=0; i<bars; i++){
+      const v = dataArray[i * step] / 255;
+      const barH = Math.max(2, v * h * 0.92);
+
+      const x = i * (barW + gap);
+      const y = h - barH;
+
+      ctx.shadowBlur = 18 * devicePixelRatio;
+      ctx.shadowColor = "rgba(230,216,184,0.35)";
+      ctx.fillStyle = `rgba(230,216,184,${0.18 + v * 0.55})`;
+      ctx.fillRect(x, y, barW, barH);
+    }
+
+    // baseline
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = "rgba(230,216,184,0.18)";
+    ctx.beginPath();
+    ctx.moveTo(0, h-1);
+    ctx.lineTo(w, h-1);
+    ctx.stroke();
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  audio.addEventListener("play", () => {
+    initAudioContext();
+    if(audioCtx.state === "suspended"){
+      audioCtx.resume().catch(()=>{});
+    }
+    if(!rafId) draw();
+  });
+
+  audio.addEventListener("pause", () => {
+    if(rafId){
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  });
+
+  loadTrack(0, false);
+  probeDurations();
+
+  // ===== OPTION 3: SOUNDCLOUD WIDGET SYNC (no audio capture) =====
+  (function initSoundCloudSync(){
+    const iframe = document.getElementById("scWidget");
+    if(!iframe) return;
+
+    const scApi = document.createElement("script");
+    scApi.src = "https://w.soundcloud.com/player/api.js";
+    scApi.onload = () => {
+      try{
+        const widget = window.SC && window.SC.Widget ? window.SC.Widget(iframe) : null;
+        if(!widget) return;
+
+        let playing = false;
+
+        function setPulseFromProgress(p){
+          // p is 0..1; keep subtle so it doesn't look like a casino
+          const a = 0.06 + (p * 0.10);
+          const b = 0.04 + (p * 0.08);
+          document.documentElement.style.setProperty("--pulseA", a.toFixed(3));
+          document.documentElement.style.setProperty("--pulseB", b.toFixed(3));
+        }
+
+        widget.bind(window.SC.Widget.Events.PLAY, () => {
+          playing = true;
+          document.body.classList.add("sc-playing");
+          widget.getDuration((d)=>{ if(d) setPulseFromProgress(0.1); });
+        });
+
+        widget.bind(window.SC.Widget.Events.PAUSE, () => {
+          playing = false;
+          document.body.classList.remove("sc-playing");
+          document.documentElement.style.setProperty("--pulseA", ".08");
+          document.documentElement.style.setProperty("--pulseB", ".05");
+        });
+
+        widget.bind(window.SC.Widget.Events.FINISH, () => {
+          playing = false;
+          document.body.classList.remove("sc-playing");
+          document.documentElement.style.setProperty("--pulseA", ".08");
+          document.documentElement.style.setProperty("--pulseB", ".05");
+        });
+
+        // progress event provides relativePosition (0..1)
+        widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, (e) => {
+          if(!playing) return;
+          if(e && typeof e.relativePosition === "number"){
+            // smooth-ish pulse: use a wave around progress
+            const p = e.relativePosition;
+            const wobble = 0.5 + 0.5 * Math.sin(p * Math.PI * 8);
+            setPulseFromProgress(wobble);
+          }
+        });
+
+      }catch(err){
+        // If anything breaks, the page still works. Just without the SC pulse.
+        console.warn("SoundCloud sync failed:", err);
+      }
+    };
+    document.head.appendChild(scApi);
+  })();
+</script>
+
+</body>
+</html>
