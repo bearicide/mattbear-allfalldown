@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,24 +6,22 @@
 <title>MATTBEAR — All Fall Down</title>
 <meta name="theme-color" content="#0b0906" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poiret+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg0:#070604;
   --bg1:#0d0b08;
   --bg2:#12100c;
-
   --ink:#f3efe6;
   --muted:#c9bfae;
-  --dim:#9a8f7d;
-
   --gold:#d8b56a;
   --gold2:#f1d08a;
-
   --line:rgba(216,181,106,.22);
-  --panel:rgba(18,16,12,.62);
-
-  --shadow:0 18px 60px rgba(0,0,0,.55);
-  --radius:26px;
+  --panel:rgba(18,16,12,.65);
+  --radius:28px;
 }
 
 *{box-sizing:border-box}
@@ -32,189 +29,151 @@
 body{
   margin:0;
   color:var(--ink);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  font-family:Inter,system-ui;
   background:
     radial-gradient(1200px 700px at 20% 0%, rgba(216,181,106,.10), transparent 58%),
-    radial-gradient(900px 600px at 90% 20%, rgba(241,208,138,.06), transparent 62%),
     linear-gradient(160deg,var(--bg0),var(--bg1) 55%,var(--bg2));
 }
 
-.wrap{
-  max-width:1100px;
-  margin:60px auto 80px;
-  padding:20px;
+.layout{
+  display:flex;
+  min-height:100vh;
 }
 
-/* Header Styling */
-
-.site-header{
-  text-align:center;
-  margin-bottom:50px;
+.sidebar{
+  width:240px;
+  padding:40px 20px;
+  border-right:1px solid var(--line);
+  background:rgba(0,0,0,.25);
 }
 
-.brand-title{
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:700;
-  font-size:clamp(38px,4vw,60px);
-  letter-spacing:.32em;
+.brand{
+  font-family:Cinzel,Georgia,serif;
+  font-weight:800;
+  letter-spacing:.28em;
   text-transform:uppercase;
+  font-size:20px;
+  margin-bottom:40px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.nav a{
+  text-decoration:none;
   color:var(--ink);
+  font-size:13px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(216,181,106,.2);
+  background:rgba(18,16,12,.4);
+  transition:.2s;
+}
+
+.nav a:hover{
+  background:rgba(216,181,106,.15);
+}
+
+.content{
+  flex:1;
+  padding:60px 60px 80px;
+}
+
+header{
+  margin-bottom:40px;
+}
+
+.title{
+  font-family:Cinzel,Georgia,serif;
+  font-size:clamp(36px,4vw,60px);
+  letter-spacing:.28em;
+  text-transform:uppercase;
 }
 
 .subtitle{
-  margin-top:18px;
-  font-family:Georgia,serif;
+  margin-top:16px;
+  font-family:Poiret One,Cinzel,serif;
   font-size:14px;
   letter-spacing:.25em;
   text-transform:uppercase;
   color:var(--gold);
 }
 
-/* Card Layout */
-
 .card{
   border-radius:var(--radius);
   border:1px solid var(--line);
   background:var(--panel);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.section{
   padding:28px;
-}
-
-.section h2{
-  margin:0 0 18px 0;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.9px;
-  color:var(--gold2);
-}
-
-/* Buttons */
-
-.buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-a.btn{
-  padding:12px 18px;
-  border-radius:18px;
-  border:1px solid rgba(216,181,106,.35);
-  background:linear-gradient(180deg,rgba(216,181,106,.22),rgba(18,16,12,.45));
-  color:var(--ink);
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  font-size:12.5px;
-  text-decoration:none;
-  transition:all .15s ease;
-}
-
-a.btn:hover{
-  transform:translateY(-2px);
-}
-
-a.btn.secondary{
-  background:rgba(18,16,12,.35);
-}
-
-/* SoundCloud Embed */
-
-.embed{
-  margin-top:30px;
-  border-top:1px solid var(--line);
-  padding-top:25px;
 }
 
 .embed iframe{
   width:100%;
   height:520px;
   border:0;
-  border-radius:18px;
+  border-radius:20px;
 }
-
-/* Quick Links */
-
-.links-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.links-list a{
-  color:var(--gold2);
-  text-decoration:none;
-  font-size:14px;
-  border-bottom:1px solid rgba(216,181,106,.25);
-  padding-bottom:4px;
-}
-
-.links-list a:hover{
-  opacity:.8;
-}
-
-/* Footer */
 
 footer{
   margin-top:40px;
   font-size:12px;
   color:var(--muted);
-  text-align:center;
+}
+
+@media(max-width:900px){
+  .layout{flex-direction:column}
+  .sidebar{
+    width:100%;
+    border-right:none;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav{flex-direction:row;flex-wrap:wrap}
+  .content{padding:40px 20px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
+<div class="layout">
 
-<header class="site-header">
-  <div class="brand-title">MATTBEAR</div>
-  <div class="subtitle">All Fall Down</div>
+<div class="sidebar">
+  <div class="brand">MATTBEAR</div>
+  <div class="nav">
+    <a href="index.html">Home</a>
+    <a href="mattbear-gold-slot.html">Gold Slot 5×5</a>
+    <a href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank">SoundCloud</a>
+    <a href="https://suno.com/@mattbear86" target="_blank">Suno</a>
+  </div>
+</div>
+
+<div class="content">
+
+<header>
+  <div class="title">All Fall Down</div>
+  <div class="subtitle">Gold Elegance Edition</div>
 </header>
 
 <div class="card">
-
-  <div class="section">
-    <h2>Listen</h2>
-    <div class="buttons">
-      <a class="btn" href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank">SoundCloud</a>
-      <a class="btn secondary" href="https://suno.com/@mattbear86" target="_blank">Suno</a>
-      <a class="btn secondary" href="https://bearicide.github.io/mattbear-allfalldown" target="_blank">Project Page</a>
-    </div>
-
-    <div class="embed">
-      <iframe
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%23d8b56a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false">
-      </iframe>
-    </div>
+  <div class="embed">
+    <iframe allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%23d8b56a&visual=false">
+    </iframe>
   </div>
-
-  <div class="section">
-    <h2>Quick Links</h2>
-    <div class="links-list">
-      <a href="https://bearicide.github.io/mattbear-allfalldown" target="_blank">
-        bearicide.github.io/mattbear-allfalldown
-      </a>
-      <a href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank">
-        soundcloud.com/mattbear86/sets/allfalldown
-      </a>
-      <a href="https://suno.com/@mattbear86" target="_blank">
-        suno.com/@mattbear86
-      </a>
-    </div>
-  </div>
-
 </div>
 
 <footer>
-  © MATTBEAR — Gold Elegance Edition
+  © MATTBEAR — Clean Gold Layout
 </footer>
+
+</div>
 
 </div>
 
