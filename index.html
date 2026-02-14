@@ -1,169 +1,396 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>.MATTBEAR. — ALL FALL DOWN</title>
-<meta name="theme-color" content="#06070c" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>.MATTBEAR. — All Fall Down</title>
+  <meta name="theme-color" content="#0b0906" />
 
-<style>
-:root{
-  --bg0:#06070c;
-  --bg1:#0b0f1d;
-  --text:#d6e6ff;
-  --muted:#8ea6cc;
-  --neon1:#00e5ff;
-  --neon2:#ff3df2;
-  --neon3:#7cff00;
-  --panel:rgba(10,14,28,.78);
-  --line:rgba(120,190,255,.18);
-  --glow:0 0 18px rgba(0,229,255,.35),0 0 30px rgba(255,61,242,.18);
-  --radius:22px;
-}
+  <style>
+    :root{
+      --bg0:#070604;
+      --bg1:#0d0b08;
+      --bg2:#12100c;
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background:
-    radial-gradient(900px 520px at 12% 12%, rgba(0,229,255,.18), transparent 55%),
-    radial-gradient(980px 540px at 85% 15%, rgba(255,61,242,.14), transparent 60%),
-    radial-gradient(760px 520px at 70% 85%, rgba(124,255,0,.08), transparent 60%),
-    linear-gradient(160deg,var(--bg0),var(--bg1));
-}
+      --ink:#f3efe6;
+      --muted:#c9bfae;
+      --dim:#9a8f7d;
 
-.wrap{
-  max-width:1100px;
-  margin:30px auto 60px;
-  padding:20px;
-}
+      --gold:#d8b56a;
+      --gold2:#f1d08a;
+      --gold3:#9b7b35;
 
-header{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:16px;
-  margin-bottom:24px;
-}
+      --line:rgba(216,181,106,.22);
+      --panel:rgba(18,16,12,.62);
 
-h1{
-  margin:0;
-  font-size:clamp(26px,3vw,40px);
-  letter-spacing:.5px;
-  text-shadow:0 0 18px rgba(0,229,255,.25);
-}
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radius2: 28px;
+    }
 
-.sub{
-  color:var(--muted);
-  font-size:14px;
-  margin-top:6px;
-}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(216,181,106,.10), transparent 58%),
+        radial-gradient(900px 600px at 90% 20%, rgba(241,208,138,.06), transparent 62%),
+        radial-gradient(900px 520px at 60% 100%, rgba(155,123,53,.07), transparent 60%),
+        linear-gradient(160deg, var(--bg0), var(--bg1) 55%, var(--bg2));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing:.2px;
+      overflow-x:hidden;
+    }
 
-.card{
-  border-radius:var(--radius);
-  border:1px solid var(--line);
-  background:var(--panel);
-  overflow:hidden;
-}
+    /* subtle classy grain */
+    .grain{
+      position:fixed; inset:0; pointer-events:none; opacity:.10;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
 
-.section{
-  padding:22px;
-}
+    .wrap{
+      max-width: 1120px;
+      margin: 30px auto 60px;
+      padding: 18px;
+    }
 
-.section h2{
-  margin:0 0 10px 0;
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  color:rgba(214,230,255,.9);
-}
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom: 18px;
+    }
 
-.links{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:14px;
-}
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      max-width: 72ch;
+    }
 
-.btn{
-  padding:10px 14px;
-  border-radius:16px;
-  border:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(0,229,255,.14),rgba(255,61,242,.10));
-  color:var(--text);
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-  text-decoration:none;
-  box-shadow:var(--glow);
-  font-size:13px;
-}
+    .brand h1{
+      margin:0;
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      font-weight: 800;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height:1.05;
+      letter-spacing:.8px;
+    }
 
-.btn.secondary{
-  background:rgba(10,14,28,.6);
-  box-shadow:none;
-}
+    .brand .sub{
+      color:var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
 
-.embed{
-  border-top:1px solid var(--line);
-  background:rgba(0,0,0,.2);
-}
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(216,181,106,.12), rgba(18,16,12,.35));
+      color: rgba(243,239,230,.92);
+      font-size: 12px;
+      letter-spacing:.6px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
+      white-space:nowrap;
+    }
+    .seal{
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.15)), var(--gold);
+      box-shadow: 0 0 14px rgba(216,181,106,.35);
+    }
 
-.embed iframe{
-  width:100%;
-  height:200px;
-  border:0;
-  display:block;
-}
+    /* OPEN layout: less “boxed”, more breathing room */
+    .hero{
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(18,16,12,.58), rgba(18,16,12,.38));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
 
-footer{
-  margin-top:20px;
-  font-size:12px;
-  color:var(--muted);
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px;
-}
-</style>
+    .hero-top{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 0;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero-top{ grid-template-columns: 1fr; }
+    }
+
+    .left, .right{
+      padding: 22px 22px 18px;
+    }
+
+    .right{
+      border-left: 1px solid rgba(216,181,106,.16);
+      background: linear-gradient(180deg, rgba(0,0,0,.12), transparent);
+    }
+    @media (max-width: 980px){
+      .right{ border-left:none; border-top:1px solid rgba(216,181,106,.16); }
+    }
+
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .9px;
+      text-transform: uppercase;
+      color: rgba(241,208,138,.92);
+      margin-bottom: 10px;
+    }
+
+    .lead{
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(243,239,230,.92);
+      margin: 0 0 14px;
+    }
+
+    .buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+
+    a.btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 11px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(216,181,106,.28);
+      background: linear-gradient(180deg, rgba(216,181,106,.20), rgba(18,16,12,.40));
+      color: rgba(243,239,230,.96);
+      text-decoration:none;
+      font-weight: 800;
+      letter-spacing:.7px;
+      text-transform: uppercase;
+      font-size: 12.5px;
+      transition: transform .08s ease, filter .18s ease;
+    }
+    a.btn:hover{ filter: brightness(1.06); }
+    a.btn:active{ transform: translateY(1px); }
+
+    a.btn.secondary{
+      background: rgba(18,16,12,.35);
+      border-color: rgba(216,181,106,.20);
+      color: rgba(243,239,230,.88);
+    }
+
+    .meta{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 520px){
+      .meta{ grid-template-columns: 1fr; }
+    }
+    .meta .row{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(216,181,106,.14);
+      background: rgba(18,16,12,.28);
+    }
+    .meta .k{
+      color: var(--dim);
+      font-size: 11.5px;
+      letter-spacing:.8px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .meta .v{
+      font-weight: 800;
+      color: rgba(243,239,230,.92);
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(216,181,106,.45), rgba(241,208,138,.25), transparent);
+      opacity:.9;
+    }
+
+    .lower{
+      padding: 18px 22px 22px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .lower{ grid-template-columns: 1fr; }
+    }
+
+    .section{
+      border-radius: var(--radius);
+      border: 1px solid rgba(216,181,106,.14);
+      background: rgba(18,16,12,.26);
+      padding: 16px 16px 14px;
+    }
+
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: rgba(241,208,138,.92);
+    }
+
+    .section p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13.5px;
+    }
+
+    code{
+      color: rgba(243,239,230,.92);
+      background: rgba(255,255,255,.06);
+      padding: 2px 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* Bigger SoundCloud window + tracklist-friendly config */
+    .embed{
+      margin-top: 14px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(216,181,106,.22);
+      background: rgba(0,0,0,.12);
+    }
+    .embed iframe{
+      width:100%;
+      height: 480px; /* big enough to actually SEE tracks */
+      border:0;
+      display:block;
+    }
+    @media (max-width: 520px){
+      .embed iframe{ height: 520px; } /* extra room on mobile */
+    }
+
+    footer{
+      margin-top: 16px;
+      color: rgba(201,191,174,.75);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="grain"></div>
 
-<div class="wrap">
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>.MATTBEAR. <span style="opacity:.55;">|</span> ALL FALL DOWN</h1>
+        <div class="sub">A simple landing page that looks expensive, loads fast, and shows the actual track list like it’s trying to be helpful.</div>
+      </div>
+      <div class="tag"><span class="seal"></span> gold edition • playlist view</div>
+    </header>
 
-<header>
-  <div>
-    <h1>.MATTBEAR. — ALL FALL DOWN</h1>
-    <div class="sub">Official landing page • Black + Bright • No slot machines</div>
+    <section class="hero">
+      <div class="hero-top">
+        <div class="left">
+          <div class="kicker">Official Hub</div>
+          <p class="lead">
+            This page is the clean front door: listen, share, move on. No neon. No gimmicks. Just black, gold, and a little dignity.
+          </p>
+
+          <div class="buttons">
+            <a class="btn" href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank" rel="noreferrer">SoundCloud</a>
+            <a class="btn secondary" href="https://suno.com/@mattbear86" target="_blank" rel="noreferrer">Suno</a>
+            <a class="btn secondary" href="https://bearicide.github.io/mattbear-allfalldown" target="_blank" rel="noreferrer">Project Page</a>
+          </div>
+
+          <div class="meta">
+            <div class="row">
+              <div class="k">Theme</div>
+              <div class="v">Black + Gold Elegance</div>
+            </div>
+            <div class="row">
+              <div class="k">Purpose</div>
+              <div class="v">Listen • Share • Repeat</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="kicker">Playlist Player</div>
+          <p class="lead" style="margin-bottom:10px;">
+            If you still can’t see tracks, it’s usually the SoundCloud player mode, not your eyes.
+          </p>
+
+          <div class="embed">
+            <iframe
+              id="scFrame"
+              loading="lazy"
+              allow="autoplay"
+              referrerpolicy="no-referrer">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="lower">
+        <div class="section">
+          <h2>About</h2>
+          <p>
+            Hub page for <b>.MATTBEAR.</b> releases. Built to be clean, readable, and not screaming at people in RGB.
+          </p>
+        </div>
+        <div class="section">
+          <h2>Quick Links</h2>
+          <p>
+            GitHub: <code>bearicide.github.io/mattbear-allfalldown</code><br/>
+            SoundCloud: <code>soundcloud.com/mattbear86/sets/allfalldown</code><br/>
+            Suno: <code>suno.com/@mattbear86</code>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>Single file • GitHub Pages-ready • Tracklist-friendly embed</div>
+      <div>© .MATTBEAR.</div>
+    </footer>
   </div>
-</header>
 
-<div class="card">
-  <div class="section">
-    <h2>Listen</h2>
-    <div class="links">
-      <a class="btn" href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank">SoundCloud</a>
-      <a class="btn secondary" href="https://suno.com/@mattbear86" target="_blank">Suno</a>
-      <a class="btn secondary" href="https://bearicide.github.io/mattbear-allfalldown" target="_blank">Project Page</a>
-    </div>
-  </div>
+  <script>
+    const SOUNDCLOUD_URL = "https://soundcloud.com/mattbear86/sets/allfalldown";
 
-  <div class="embed">
-    <iframe
-      allow="autoplay"
-      src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%2300e5ff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-    </iframe>
-  </div>
-</div>
+    // Tracklist-friendly settings:
+    // visual=false shows playlist list better than the "visual" big-art mode.
+    // Bigger iframe height is set in CSS above.
+    const scParams = new URLSearchParams({
+      url: SOUNDCLOUD_URL,
+      color: "#d8b56a",
+      auto_play: "false",
+      hide_related: "false",
+      show_comments: "true",
+      show_user: "true",
+      show_reposts: "false",
+      show_teaser: "true",
+      visual: "false"
+    });
 
-<footer>
-  <div>Single file • GitHub Pages ready</div>
-  <div>© .MATTBEAR.</div>
-</footer>
-
-</div>
-
+    document.getElementById("scFrame").src =
+      "https://w.soundcloud.com/player/?" + scParams.toString();
+  </script>
 </body>
 </html>
