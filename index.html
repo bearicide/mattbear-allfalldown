@@ -1,191 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MATTBEAR — All Fall Down</title>
-<meta name="theme-color" content="#101713" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poiret+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
+<meta name="description" content="All Fall Down by MATTBEAR: a HiberNation release-world page with SoundCloud, Suno, child pages, and sitewide admin-ready navigation.">
+<meta name="theme-color" content="#050505">
 <style>
-:root{
---bg0:#0a0f0c;
---bg1:#101713;
---bg2:#161b18;
---ink:#dfe7dd;
---muted:#95a193;
---pine:#1F5E47;
---mbv:#4B2C63;
---gold:#C7B15A;
---line:rgba(95,164,129,.18);
---panel:rgba(10,15,12,.72);
---radius:28px;
-}
-*{box-sizing:border-box}
-html{background:#0a0f0c}
-body{
-margin:0;
-color:var(--ink);
-font-family:Inter,system-ui;
-background:
-radial-gradient(1200px 800px at 15% 0%,rgba(31,94,71,.24),transparent 60%),
-radial-gradient(1000px 700px at 90% 10%,rgba(75,44,99,.22),transparent 60%),
-linear-gradient(160deg,var(--bg0),var(--bg1) 55%,var(--bg2));
-min-height:100vh;
-overflow-x:hidden;
-}
-body:before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-background:linear-gradient(rgba(255,255,255,.02),rgba(255,255,255,0));
-opacity:.18;
-mix-blend-mode:screen;
-}
-.layout{display:flex;min-height:100vh}
-.sidebar{
-width:240px;
-padding:40px 20px;
-border-right:1px solid var(--line);
-background:rgba(0,0,0,.22);
-backdrop-filter:blur(8px);
-}
-.brand{
-font-family:Cinzel,Georgia,serif;
-font-weight:800;
-letter-spacing:.28em;
-text-transform:uppercase;
-font-size:20px;
-margin-bottom:40px;
-color:#eef7ef;
-text-shadow:0 0 18px rgba(56,217,150,.18);
-}
-.nav{display:flex;flex-direction:column;gap:18px}
-.nav a,footer a{
-text-decoration:none;
-color:var(--ink);
-font-size:13px;
-letter-spacing:.18em;
-text-transform:uppercase;
-padding:10px 12px;
-border-radius:14px;
-border:1px solid rgba(95,164,129,.16);
-background:rgba(12,18,15,.45);
-transition:.22s ease;
-}
-.nav a:hover,footer a:hover{
-background:rgba(31,94,71,.22);
-border-color:rgba(199,177,90,.28);
-transform:translateY(-1px);
-}
-.content{flex:1;padding:60px 60px 80px}
-header{margin-bottom:40px}
-.title{
-font-family:Cinzel,Georgia,serif;
-font-size:clamp(38px,4vw,64px);
-letter-spacing:.24em;
-text-transform:uppercase;
-text-shadow:0 0 28px rgba(75,44,99,.25);
-}
-.subtitle{
-margin-top:16px;
-font-family:Poiret One,Cinzel,serif;
-font-size:14px;
-letter-spacing:.25em;
-text-transform:uppercase;
-color:var(--gold);
-opacity:.92;
-}
-.card{
-border-radius:var(--radius);
-border:1px solid var(--line);
-background:var(--panel);
-padding:28px;
-box-shadow:0 24px 70px rgba(0,0,0,.32);
-backdrop-filter:blur(10px);
-}
-.embed{
-border-radius:22px;
-overflow:hidden;
-border:1px solid rgba(95,164,129,.18);
-background:#080b09;
-}
-.embed iframe{
-display:block;
-width:100%;
-height:640px;
-border:0;
-filter:saturate(.92) contrast(1.02);
-}
-footer{
-margin-top:40px;
-font-size:12px;
-color:var(--muted);
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-align-items:center;
-letter-spacing:.08em;
-}
-@media(max-width:900px){
-.layout{flex-direction:column}
-.sidebar{
-width:100%;
-border-right:none;
-border-bottom:1px solid var(--line);
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:24px 18px;
-}
-.nav{flex-direction:row;flex-wrap:wrap}
-.content{padding:40px 20px}
-.embed iframe{height:560px}
-}
-@media(max-width:560px){
-.sidebar{display:block}
-.brand{margin-bottom:20px}
-.content{padding:28px 14px}
-.card{padding:14px;border-radius:20px}
-.embed iframe{height:520px}
-.title{letter-spacing:.12em;line-height:1.1}
-.subtitle{letter-spacing:.18em}
-.nav a,footer a{font-size:11px;padding:9px 10px}
-}
+:root{--text:#f7f0df;--muted:#c8bca8;--line:rgba(255,255,255,.15);--gold:#caa96b;--cyan:#7fd7ff;--mag:#ff5fd2;--green:#7dff9f}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 0,rgba(127,215,255,.18),transparent 28%),radial-gradient(circle at 88% 10%,rgba(255,95,210,.14),transparent 30%),linear-gradient(180deg,#050505,#101010,#050505);color:var(--text);font-family:Bahnschrift,Arial,sans-serif}.wrap{width:min(1080px,calc(100% - 22px));margin:auto}a{color:inherit}.rainbow{background:linear-gradient(90deg,#ff4747,#ffbf5f,#ffef65,#7dff9f,#7fd7ff,#8b6dff,#ff5fd2);-webkit-background-clip:text;background-clip:text;color:transparent}.top{position:sticky;top:0;z-index:20;background:rgba(5,5,5,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0}.brand{text-decoration:none;text-transform:uppercase;font-weight:1000;letter-spacing:.08em}.links,.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.05);text-decoration:none;text-transform:uppercase;font-size:.74rem;font-weight:900;letter-spacing:.08em}.btn:hover{box-shadow:0 0 18px rgba(127,215,255,.16)}section{padding:26px 0}.panel,.card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(24,24,24,.95),rgba(9,9,9,.92));box-shadow:0 22px 64px rgba(0,0,0,.36)}.panel{padding:clamp(20px,4vw,44px)}h1,h2,h3{margin:0;text-transform:uppercase;font-weight:1000}h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.86;letter-spacing:-.05em}h1 span{display:block;font-size:clamp(1.4rem,4vw,3.7rem);margin-top:10px}h2{font-size:clamp(1.65rem,4vw,3rem)}p{color:var(--muted);line-height:1.55}.lead{font-size:clamp(1.05rem,2vw,1.25rem);max-width:880px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.card{padding:18px}.card:before{content:"";display:block;height:2px;background:linear-gradient(90deg,var(--accent,var(--gold)),transparent);margin:-18px -18px 16px}.tag,.label{text-transform:uppercase;letter-spacing:.13em;font-weight:900}.tag{color:var(--cyan);font-size:.75rem}.label{color:var(--gold);font-size:.67rem}iframe{width:100%;min-height:360px;border:0;border-radius:14px;margin-top:18px}footer{text-align:center;padding:28px 0 90px}@media(max-width:800px){.grid{grid-template-columns:1fr}.links,.actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.btn{width:100%}}@media(max-width:520px){.links,.actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="layout">
-<div class="sidebar">
-<div class="brand">MATTBEAR</div>
-<div class="nav">
-<a href="index.html">Home</a>
-<a href="mattbear-gold-slot.html">Gold Slot 5×5</a>
-<a href="https://bearicide.github.io/" target="_blank" rel="noopener">Main Portal</a>
-<a href="https://soundcloud.com/mattbear86/sets/allfalldown" target="_blank" rel="noopener">SoundCloud</a>
-<a href="https://suno.com/@mattbear86" target="_blank" rel="noopener">Suno</a>
-</div>
-</div>
-<div class="content">
-<header>
-<div class="title">All Fall Down</div>
-<div class="subtitle">Entropy Pine // MBV Transmission</div>
-</header>
-<div class="card">
-<div class="embed">
-<iframe title="MATTBEAR All Fall Down SoundCloud playlist" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%231F5E47&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-</div>
-</div>
-<footer>
-<span>© MATTBEAR — Atmospheric Remaster Pass</span>
-<a href="https://bearicide.github.io/">Main Portal</a>
-<a href="https://bearicide.github.io/wordplay/">WORDPLAY</a>
-</footer>
-</div>
-</div>
+<header class="top"><div class="wrap nav"><a class="brand" href="https://bearicide.github.io/"><span class="rainbow">MATTBEAR</span> / All Fall Down</a><nav class="links"><a class="btn" href="https://bearicide.github.io/HiberNation/">HiberNation</a><a class="btn" href="#listen">Listen</a><a class="btn" href="#world">World</a><a class="btn" href="mattbear-gold-slot.html">Child Page</a><a class="btn" href="https://suno.com/@mattbear86">Suno</a><a class="btn" href="https://bearicide.github.io/">HOME</a></nav></div></header>
+<main>
+<section><div class="wrap"><div class="panel"><p class="tag">MATTBEAR release world / HiberNation branch</p><h1><span class="rainbow">All Fall Down</span><span>entropy pine transmission</span></h1><p class="lead">MATTBEAR is the brand, artist, and maker. HiberNation is the movement, ideals, collaboration, and shared den behind it. All Fall Down is a release-world branch: music first, then pages, visuals, tools, child pages, and little machines orbiting the sound.</p><div class="actions"><a class="btn" href="#listen">Listen</a><a class="btn" href="mattbear-gold-slot.html">Open Child Page</a><a class="btn" href="https://bearicide.github.io/HiberNation/">HiberNation Hub</a><a class="btn" href="https://soundcloud.com/mattbear86/sets/allfalldown">SoundCloud Set</a></div></div></div></section>
+<section id="listen"><div class="wrap"><div class="panel"><p class="tag">listen</p><h2>SoundCloud set.</h2><iframe title="All Fall Down SoundCloud set" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mattbear86/sets/allfalldown&color=%231F5E47&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe></div></div></section>
+<section id="world"><div class="wrap"><div class="panel"><p class="tag">release world</p><h2>Connected pieces.</h2><div class="grid"><article class="card" style="--accent:var(--mag)"><p class="label">Music Core</p><h3>All Fall Down</h3><p>The listening room and release identity for the set.</p></article><article class="card" style="--accent:var(--gold)"><p class="label">Child Page</p><h3>Gold 5×5</h3><p>A playable free-play side artifact connected to this release world.</p><p><a class="btn" href="mattbear-gold-slot.html">Open</a></p></article><article class="card" style="--accent:var(--green)"><p class="label">HiberNation</p><h3>Music spine</h3><p>All music branches should lead back to the MATTBEAR HiberNation hub.</p><p><a class="btn" href="https://bearicide.github.io/HiberNation/">Open</a></p></article></div></div></div></section>
+</main>
+<footer><div class="wrap"><p><span class="rainbow">MATTBEAR</span> / HiberNation — your ideas. our solutions.</p></div></footer>
+<script>window.MATTBEAR_ALLFALLDOWN={artist:"MATTBEAR",movement:"HiberNation",type:"release-world",children:["mattbear-gold-slot.html"],hub:"https://bearicide.github.io/HiberNation/"};</script>
+<script src="https://bearicide.github.io/assets/mattbear-sitewide.js" defer data-mb-page="All Fall Down" data-mb-section="Release world" data-mb-artist="MATTBEAR" data-mb-movement="HiberNation"></script>
 </body>
 </html>
